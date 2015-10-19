@@ -62,22 +62,33 @@ use Wandu\Http\Psr\Response;
 use Wandu\Http\Psr\Uri;
 use Relay\Runner;
 use Gpupo\Cache\CacheItemPool;
+use Gpupo\Cache\CacheItem;
 
 
 // Build queue for running middleware through relay
 $queue[] = function(RequestInterface $request, ResponseInterface $response, callable $next) {
+
+    $cacheItemFactory = function($key) {
+        return new CacheItem($key);
+    };
+
     $cachingMiddleWare = new CachingMiddleware(
-        new CacheItemPool('Filesystem')
+        new CacheItemPool('Filesystem'),
+        $cacheItemFactory
     );
+
     return $cachingMiddleWare($request, $response, $next);
 };
+
 
 // Create a Relay Runner instance ...
 $runner = new Runner($queue);
 
+
 // Test to cache
 $body = new Wandu\Http\Psr\Stream('php://memory', 'w');
 $body->write('<html><head><title>Demo</title></head><body><h1>Hello World!</h1></body></html>');
+
 
 // ... and run it with the queue defined above
 /* @var Response $response */

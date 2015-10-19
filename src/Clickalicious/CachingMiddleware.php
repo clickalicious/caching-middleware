@@ -54,7 +54,6 @@ namespace Clickalicious;
  * @link       http://clickalicious.github.com/CachingMiddleware/
  */
 
-use Gpupo\Cache\CacheItem;
 use Gpupo\Cache\CacheAwareTrait;
 use Psr\Http\Message\ServerRequestInterface;
 use Psr\Http\Message\RequestInterface;
@@ -85,11 +84,12 @@ class CachingMiddleware
     use CacheAwareTrait;
 
     /**
-     * The pool for items
+     * Callable for producing CacheItemInterface instances
      *
-     * @var CacheItemPoolInterface
+     * @var callable
+     * @access protected
      */
-    protected $cacheItemPool;
+    protected $cacheItemFactory;
 
     /**
      * HTTP Method/Verb GET
@@ -104,7 +104,7 @@ class CachingMiddleware
      * CachingMiddleware constructor.
      *
      * @param CacheItemPoolInterface $cacheItemPoolInterface Instance of a PSR-6 Cache Pool
-     * @param
+     * @param callable               $cacheItemFactory       Factory for producing CacheItemInterface instances
      *
      * @author Benjamin Carl <opensource@clickalicious.de>
      * @access public
@@ -115,30 +115,6 @@ class CachingMiddleware
             ->cacheItemPool($cacheItemPoolInterface)
             ->cacheItemFactory($cacheItemFactory);
     }
-
-
-
-    protected $cacheItemFactory;
-
-    protected function setCacheItemFactory(callable $cacheItemFactory)
-    {
-        $this->cacheItemFactory = $cacheItemFactory;
-    }
-
-    protected function cacheItemFactory(callable $cacheItemFactory)
-    {
-        $this->setCacheItemFactory($cacheItemFactory);
-
-        return $this;
-    }
-
-    protected function getCacheItemFactory()
-    {
-        return $this->cacheItemFactory;
-    }
-
-
-
 
     /**
      * Invoke.
@@ -157,7 +133,8 @@ class CachingMiddleware
             return $next($request, $response);
         }
 
-        if ($html = $this->getCachedResponse($request)) {
+        if ($html = $this->getCachedResponseHtml($request)) {
+
             $body = new Stream('php://memory', 'w');
             $body->write($html);
             $response = $response->withBody($body);
@@ -176,14 +153,60 @@ class CachingMiddleware
     }
 
     /*------------------------------------------------------------------------------------------------------------------
-    | INTERNAL API
+    | SETTER, GETTER, ISSER & HASSER
     +-----------------------------------------------------------------------------------------------------------------*/
 
-    protected function setCacheItemPool(CacheItemPoolInterface $cacheItemPool)
+    /**
+     * Setter for cacheItemFactory.
+     *
+     * @param callable $cacheItemFactory The cache item factory to set.
+     *
+     * @author Benjamin Carl <opensource@clickalicious.de>
+     * @return void
+     * @access protected
+     */
+    protected function setCacheItemFactory(callable $cacheItemFactory)
     {
-        $this->cacheItemPool = $cacheItemPool;
+        $this->cacheItemFactory = $cacheItemFactory;
     }
 
+    /**
+     * Setter for cacheItemFactory.
+     *
+     * @param callable $cacheItemFactory The cache item factory to set.
+     *
+     * @author Benjamin Carl <opensource@clickalicious.de>
+     * @return $this Instance for chaining
+     * @access protected
+     */
+    protected function cacheItemFactory(callable $cacheItemFactory)
+    {
+        $this->setCacheItemFactory($cacheItemFactory);
+
+        return $this;
+    }
+
+    /**
+     * Getter for cacheItemFactory.
+     *
+     * @author Benjamin Carl <opensource@clickalicious.de>
+     * @return callable|null The CacheItemInterface factory if set, otherwise NULL
+     * @access protected
+     */
+    protected function getCacheItemFactory()
+    {
+        return $this->cacheItemFactory;
+    }
+
+    /**
+     * Fluent: Setter for cacheItemPool.
+     *
+     * @param CacheItemPoolInterface $cacheItemPool The cache item pool to set.
+     *
+     * @author Benjamin Carl <opensource@clickalicious.de>
+     * @return $this Instance for chaining
+     * @access protected
+     */
     protected function cacheItemPool(CacheItemPoolInterface $cacheItemPool)
     {
         $this->setCacheItemPool($cacheItemPool);
@@ -191,32 +214,75 @@ class CachingMiddleware
         return $this;
     }
 
-    protected function getCacheItemPool()
-    {
-        return $this->cacheItemPool;
-    }
-
-    protected function getId(RequestInterface $request)
-    {
-        $uri     = $request->getUri();
-        $slugify = new Slugify();
-
-        return $slugify->slugify(
-            trim($uri->getPath(), '/').($uri->getQuery() ? '?'.$uri->getQuery() : '')
-        );
-    }
-
-    protected function getCachedResponse(RequestInterface $request)
+    /**
+     * Returns a cached Response by Request(Interface).
+     *
+     * @param RequestInterface $request The request to return cached response for.
+     *
+     * @author Benjamin Carl <opensource@clickalicious.de>
+     * @return string|null The HTML for response as string if found, otherwise NULL
+     * @access protected
+     */
+    protected function getCachedResponseHtml(RequestInterface $request)
     {
         return $this
             ->getCacheItemPool()
-            ->getItem($this->getId($request))
-                ->get();
+            ->getItem($this->createKeyFromRequest($request))
+            ->get();
     }
 
+    /*------------------------------------------------------------------------------------------------------------------
+    | INTERNAL API
+    +-----------------------------------------------------------------------------------------------------------------*/
+
+    /**
+     * Creates a (static) key from RequestInterface passed in.
+     *
+     * @author Benjamin Carl <opensource@clickalicious.de>
+     * @return string The key of the passed RequestInterface
+     * @access protected
+     */
+    protected function createKeyFromRequest(RequestInterface $request)
+    {
+        static $key = null;
+
+        if (null === $key) {
+            $uri     = $request->getUri();
+            $slugify = new Slugify();
+            $key     = $slugify->slugify(trim($uri->getPath(), '/').($uri->getQuery() ? '?'.$uri->getQuery() : ''));
+        }
+
+        return $key;
+    }
+
+    /**
+     * Creates a fresh CacheItemInterface instance from factory.
+     *
+     * @param mixed $key Key to set as key of CacheItemInterface
+     *
+     * @author Benjamin Carl <opensource@clickalicious.de>
+     * @return CacheItemInterface Fresh instance of a CacheItem
+     * @access protected
+     */
+    protected function createCacheItem($key)
+    {
+        $factory = $this->getCacheItemFactory();
+        return $factory($key);
+    }
+
+    /**
+     * Caches a response by Request & Response.
+     *
+     * @param RequestInterface  $request  Request as identifier
+     * @param ResponseInterface $response Response to cache
+     *
+     * @author Benjamin Carl <opensource@clickalicious.de>
+     * @return void
+     * @access protected
+     */
     protected function cacheResponse(RequestInterface $request, ResponseInterface $response)
     {
-        $cacheItem = new CacheItem($this->getId($request));
+        $cacheItem = $this->createCacheItem($this->createKeyFromRequest($request));
         $value     = $response->getBody()->__toString();
         $cacheItem->set($value);
 

@@ -12,13 +12,16 @@
   "require": {
     "php": ">=5.5.0",
     "shrikeh/teapot": "~1.0.2",
-    "psr/http-message": "dev-master as 1.0.x-dev"
+    "psr/http-message": "dev-master as 1.0.x-dev",
+    "gpupo/cache": "~1.2.1",
+    "cocur/slugify": "~0.4.1"
   },
   "require-dev": {
     "phpunit/phpunit": "~5.0.0",
     "relay/relay": "~1.0.0",
     "wandu/http": "~1.1.0",
-    "satooshi/php-coveralls": "dev-master as 1.0.x-dev"
+    "satooshi/php-coveralls": "dev-master as 1.0.x-dev",
+    "symfony/var-dumper": "~2.7.5"
   },
   "autoload": {
     "psr-0": {
@@ -39,7 +42,7 @@
   ],
   "homepage": "https://www.clickalicious.de/",
   "license": [
-    "BSD-2-Clause"
+    "BSD-3-Clause"
   ],
   "support": {
     "email": "opensource@clickalicious.de",

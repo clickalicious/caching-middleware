@@ -61,7 +61,6 @@ use Psr\Http\Message\ResponseInterface;
 use Psr\Cache\CacheItemPoolInterface;
 use Psr\Cache\CacheItemInterface;
 use Teapot\StatusCode\Http;
-use Cocur\Slugify\Slugify;
 use Wandu\Http\Psr\Stream;
 use Wandu\Http\Psr\Response;
 
@@ -84,12 +83,20 @@ class CachingMiddleware
     use CacheAwareTrait;
 
     /**
-     * Callable for producing CacheItemInterface instances
+     * Callable factory for producing CacheItemInterface instances
      *
      * @var callable
      * @access protected
      */
     protected $cacheItemFactory;
+
+    /**
+     * Callable factory for returning a key for cache-item
+     *
+     * @var callable
+     * @access protected
+     */
+    protected $cacheItemKeyFactory;
 
     /**
      * HTTP Method/Verb GET
@@ -105,15 +112,20 @@ class CachingMiddleware
      *
      * @param CacheItemPoolInterface $cacheItemPoolInterface Instance of a PSR-6 Cache Pool
      * @param callable               $cacheItemFactory       Factory for producing CacheItemInterface instances
+     * @param callable               $cacheItemKeyFactory    Factory for producing key for request instances
      *
      * @author Benjamin Carl <opensource@clickalicious.de>
      * @access public
      */
-    public function __construct(CacheItemPoolInterface $cacheItemPoolInterface, callable $cacheItemFactory)
-    {
+    public function __construct(
+        CacheItemPoolInterface $cacheItemPoolInterface,
+        callable $cacheItemFactory,
+        callable $cacheItemKeyFactory
+    ) {
         $this
             ->cacheItemPool($cacheItemPoolInterface)
-            ->cacheItemFactory($cacheItemFactory);
+            ->cacheItemFactory($cacheItemFactory)
+            ->cacheItemKeyFactory($cacheItemKeyFactory);
     }
 
     /**
@@ -199,6 +211,48 @@ class CachingMiddleware
     }
 
     /**
+     * Setter for cacheItemKeyFactory.
+     *
+     * @param callable $cacheItemKeyFactory The cache item factory to set.
+     *
+     * @author Benjamin Carl <opensource@clickalicious.de>
+     * @return void
+     * @access protected
+     */
+    protected function setCacheItemKeyFactory(callable $cacheItemKeyFactory)
+    {
+        $this->cacheItemKeyFactory = $cacheItemKeyFactory;
+    }
+
+    /**
+     * Setter for cacheItemKeyFactory.
+     *
+     * @param callable $cacheItemKeyFactory The cache item factory to set.
+     *
+     * @author Benjamin Carl <opensource@clickalicious.de>
+     * @return $this Instance for chaining
+     * @access protected
+     */
+    protected function cacheItemKeyFactory(callable $cacheItemKeyFactory)
+    {
+        $this->setCacheItemKeyFactory($cacheItemKeyFactory);
+
+        return $this;
+    }
+
+    /**
+     * Getter for cacheItemKeyFactory.
+     *
+     * @author Benjamin Carl <opensource@clickalicious.de>
+     * @return callable|null The CacheItemInterface factory if set, otherwise NULL
+     * @access protected
+     */
+    protected function getCacheItemKeyFactory()
+    {
+        return $this->cacheItemKeyFactory;
+    }
+
+    /**
      * Fluent: Setter for cacheItemPool.
      *
      * @param CacheItemPoolInterface $cacheItemPool The cache item pool to set.
@@ -238,21 +292,17 @@ class CachingMiddleware
     /**
      * Creates a (static) key from RequestInterface passed in.
      *
+     * @param RequestInterface $request A request to return key for
+     *
      * @author Benjamin Carl <opensource@clickalicious.de>
      * @return string The key of the passed RequestInterface
      * @access protected
      */
     protected function createKeyFromRequest(RequestInterface $request)
     {
-        static $key = null;
+        $keyFactory = $this->getCacheItemKeyFactory();
 
-        if (null === $key) {
-            $uri     = $request->getUri();
-            $slugify = new Slugify();
-            $key     = $slugify->slugify(trim($uri->getPath(), '/').($uri->getQuery() ? '?'.$uri->getQuery() : ''));
-        }
-
-        return $key;
+        return $keyFactory($request);
     }
 
     /**
@@ -267,6 +317,7 @@ class CachingMiddleware
     protected function createCacheItem($key)
     {
         $factory = $this->getCacheItemFactory();
+
         return $factory($key);
     }
 

@@ -63,7 +63,7 @@ use Wandu\Http\Psr\Uri;
 use Relay\Runner;
 use Gpupo\Cache\CacheItemPool;
 use Gpupo\Cache\CacheItem;
-
+use Cocur\Slugify\Slugify;
 
 // Build queue for running middleware through relay
 $queue[] = function(RequestInterface $request, ResponseInterface $response, callable $next) {
@@ -72,9 +72,23 @@ $queue[] = function(RequestInterface $request, ResponseInterface $response, call
         return new CacheItem($key);
     };
 
+    $cacheItemKeyFactory = function(RequestInterface $request) {
+
+        static $key = null;
+
+        if (null === $key) {
+            $uri     = $request->getUri();
+            $slugify = new Slugify();
+            $key     = $slugify->slugify(trim($uri->getPath(), '/').($uri->getQuery() ? '?'.$uri->getQuery() : ''));
+        }
+
+        return $key;
+    };
+
     $cachingMiddleWare = new CachingMiddleware(
         new CacheItemPool('Filesystem'),
-        $cacheItemFactory
+        $cacheItemFactory,
+        $cacheItemKeyFactory
     );
 
     return $cachingMiddleWare($request, $response, $next);

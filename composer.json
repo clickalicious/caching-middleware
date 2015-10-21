@@ -16,7 +16,7 @@
     "gpupo/cache": "~1.2.1"
   },
   "require-dev": {
-    "phpunit/phpunit": "~5.0.0",
+    "phpunit/phpunit": "~4.8.9",
     "relay/relay": "~1.0.0",
     "wandu/http": "~1.1.0",
     "satooshi/php-coveralls": "dev-master as 1.0.x-dev",

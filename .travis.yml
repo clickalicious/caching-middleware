@@ -25,7 +25,7 @@ before_script:
   - composer --optimize-autoloader --no-interaction
 
 script:
-  - phpunit -c tests/ --coverage-clover=coverage.clover
+  - bin/phpunit -c tests/ --coverage-clover=coverage.clover
 
 after_script:
   # We upload only for reference platform! This is our base for further code analyses and so on.

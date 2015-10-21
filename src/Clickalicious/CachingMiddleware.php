@@ -8,7 +8,7 @@ namespace Clickalicious;
  *
  * CachingMiddleware.php - Implementation.
  *
- * PHP versions 5.5
+ * PHP versions 5.6
  *
  * LICENSE:
  * CachingMiddleware - A caching middleware for PSR-7 stacks based on PSR
@@ -51,7 +51,7 @@ namespace Clickalicious;
  * @copyright  2015 - 2016 Benjamin Carl
  * @license    http://www.opensource.org/licenses/bsd-license.php The BSD License
  * @version    Git: $Id$
- * @link       http://clickalicious.github.com/CachingMiddleware/
+ * @link       http://github.com/clickalicious/CachingMiddleware
  */
 
 use Gpupo\Cache\CacheAwareTrait;
@@ -75,7 +75,7 @@ use Wandu\Http\Psr\Response;
  * @copyright  2015 - 2016 Benjamin Carl
  * @license    http://www.opensource.org/licenses/bsd-license.php The BSD License
  * @version    Git: $Id$
- * @link       http://clickalicious.github.com/CachingMiddleware/
+ * @link       http://github.com/clickalicious/CachingMiddleware
  */
 class CachingMiddleware
 {

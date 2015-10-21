@@ -49,7 +49,7 @@
  * @copyright  2015 - 2016 Benjamin Carl
  * @license    http://www.opensource.org/licenses/bsd-license.php The BSD License
  * @version    Git: $Id$
- * @link       http://clickalicious.github.com/CachingMiddleware/
+ * @link       http://github.com/clickalicious/CachingMiddleware
  */
 
 require_once 'vendor/autoload.php';

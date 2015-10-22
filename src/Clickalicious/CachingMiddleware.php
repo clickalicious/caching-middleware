@@ -201,7 +201,7 @@ class CachingMiddleware
      * Getter for cacheItemFactory.
      *
      * @author Benjamin Carl <opensource@clickalicious.de>
-     * @return callable|null The CacheItemInterface factory if set, otherwise NULL
+     * @return callable The CacheItemInterface factory if set, otherwise NULL
      * @access protected
      */
     protected function getCacheItemFactory()
@@ -243,7 +243,7 @@ class CachingMiddleware
      * Getter for cacheItemKeyFactory.
      *
      * @author Benjamin Carl <opensource@clickalicious.de>
-     * @return callable|null The CacheItemInterface factory if set, otherwise NULL
+     * @return callable The CacheItemInterface factory if set, otherwise NULL
      * @access protected
      */
     protected function getCacheItemKeyFactory()
@@ -307,7 +307,7 @@ class CachingMiddleware
     /**
      * Creates a fresh CacheItemInterface instance from factory.
      *
-     * @param mixed $key Key to set as key of CacheItemInterface
+     * @param string $key Key to set as key of CacheItemInterface
      *
      * @author Benjamin Carl <opensource@clickalicious.de>
      * @return CacheItemInterface Fresh instance of a CacheItem

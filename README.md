@@ -1,7 +1,7 @@
 <img src="https://avatars2.githubusercontent.com/u/514566?v=3&u=4615dfc4970d93dea5d3eaf996b7903ee6e24e20&s=140" align="right" />
 ---
 
-The **caching middleware** for PSR-7 stacks based on PSR-6 compatible cache implementations.
+The **caching middleware** compatible to PSR-7 stack implementations.
 
 | [![Build Status](https://img.shields.io/travis/clickalicious/CachingMiddleware.svg)](https://travis-ci.org/clickalicious/CachingMiddleware) 	| [![Scrutinizer](https://img.shields.io/scrutinizer/g/clickalicious/CachingMiddleware.svg)](https://scrutinizer-ci.com/g/clickalicious/CachingMiddleware/) 	| [![Code Coverage](https://scrutinizer-ci.com/g/clickalicious/CachingMiddleware/badges/coverage.png?b=master)](https://scrutinizer-ci.com/g/clickalicious/CachingMiddleware/?branch=master) 	| [![Packagist](https://img.shields.io/packagist/l/clickalicious/CachingMiddleware.svg?style=flat)](http://opensource.org/licenses/BSD-2-Clause) 	|
 |---	|---	|---	|---	|
@@ -21,15 +21,16 @@ The **caching middleware** for PSR-7 stacks based on PSR-6 compatible cache impl
 ## Features
 
  - High performance (developed using profiler)
- - Lightweight and high quality code base (following *PSR-0,1,2,7*)
+ - Lightweight and high-quality codebase (following *PSR-0,1,2,7*)
  - Fully *PSR-7* compatible
+ - Integrates *PSR-6* caching
  - Clean & well documented code
- - Unit-tested
+ - Unit-tested with a good coverage
 
 
 ## Requirements
 
- - PHP >= 5.6 (compatible up to PHP version 7)
+ - PHP >= 5.5 (compatible up to PHP version 7)
 
 
 ## Philosophy

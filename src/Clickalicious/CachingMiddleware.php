@@ -6,13 +6,12 @@ namespace Clickalicious;
 /**
  * CachingMiddleware
  *
- * CachingMiddleware.php - Implementation.
+ * CachingMiddleware.php - Caching middleware implementation.
  *
- * PHP versions 5.6
+ * PHP versions 5.5
  *
  * LICENSE:
- * CachingMiddleware - A caching middleware for PSR-7 stacks based on PSR
- * compatible cache implementations.
+ * CachingMiddleware - The caching middleware compatible to PSR-7 stack implementations.
  *
  * Copyright (c) 2005 - 2015, Benjamin Carl - All rights reserved.
  *
@@ -67,7 +66,7 @@ use Wandu\Http\Psr\Response;
 /**
  * CachingMiddleware
  *
- * Implementation.
+ * Caching middleware implementation.
  *
  * @category   CachingMiddleware
  * @package    CachingMiddleware_Core

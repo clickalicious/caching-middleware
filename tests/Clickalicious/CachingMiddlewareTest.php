@@ -1,9 +1,10 @@
 <?php
+
 /* vim: set expandtab tabstop=4 shiftwidth=4 softtabstop=4: */
 
 namespace Clickalicious;
 
-/**
+/*
  * CachingMiddleware
  *
  * CachingMiddlewareTest.php - Tests of caching middleware implementation.
@@ -56,16 +57,18 @@ namespace Clickalicious;
 use Gpupo\Cache\CacheItemPool;
 
 /**
- * CachingMiddleware
+ * CachingMiddleware.
  *
  * Tests of caching middleware implementation.
  *
  * @category   CachingMiddleware
- * @package    CachingMiddleware_Core
+ *
  * @author     Benjamin Carl <opensource@clickalicious.de>
  * @copyright  2015 - 2016 Benjamin Carl
  * @license    http://www.opensource.org/licenses/bsd-license.php The BSD License
+ *
  * @version    Git: $Id$
+ *
  * @link       http://github.com/clickalicious/CachingMiddleware
  */
 class CachingMiddlewareTest extends \PHPUnit_Framework_TestCase
@@ -79,12 +82,12 @@ class CachingMiddlewareTest extends \PHPUnit_Framework_TestCase
         $cacheItemPool = new CacheItemPool('Null');
 
         // Dummy factory One
-        $factoryOne = function() {
+        $factoryOne = function () {
             return 1;
         };
 
         // Dummy factory Two
-        $factoryTwo = function() {
+        $factoryTwo = function () {
             return 2;
         };
 

@@ -1,8 +1,9 @@
 <?php
+
 /* vim: set expandtab tabstop=4 shiftwidth=4 softtabstop=4: */
 
 /**
- * CachingMiddleware
+ * CachingMiddleware.
  *
  * demo.php - Demonstration of CachingMiddleware.
  *
@@ -44,14 +45,15 @@
  * Please feel free to contact us via e-mail: opensource@clickalicious.de
  *
  * @category   CachingMiddleware
- * @package    CachingMiddleware_Demo
+ *
  * @author     Benjamin Carl <opensource@clickalicious.de>
  * @copyright  2015 - 2016 Benjamin Carl
  * @license    http://www.opensource.org/licenses/bsd-license.php The BSD License
+ *
  * @version    Git: $Id$
+ *
  * @link       http://github.com/clickalicious/CachingMiddleware
  */
-
 require_once 'vendor/autoload.php';
 
 use Clickalicious\CachingMiddleware;
@@ -66,20 +68,20 @@ use Gpupo\Cache\CacheItem;
 use Cocur\Slugify\Slugify;
 
 // Build queue for running middleware through relay
-$queue[] = function(RequestInterface $request, ResponseInterface $response, callable $next) {
+$queue[] = function (RequestInterface $request, ResponseInterface $response, callable $next) {
 
-    $cacheItemFactory = function($key) {
+    $cacheItemFactory = function ($key) {
         return new CacheItem($key);
     };
 
-    $cacheItemKeyFactory = function(RequestInterface $request) {
+    $cacheItemKeyFactory = function (RequestInterface $request) {
 
         static $key = null;
 
         if (null === $key) {
-            $uri     = $request->getUri();
+            $uri = $request->getUri();
             $slugify = new Slugify();
-            $key     = $slugify->slugify(trim($uri->getPath(), '/').($uri->getQuery() ? '?'.$uri->getQuery() : ''));
+            $key = $slugify->slugify(trim($uri->getPath(), '/').($uri->getQuery() ? '?'.$uri->getQuery() : ''));
         }
 
         return $key;
@@ -94,15 +96,12 @@ $queue[] = function(RequestInterface $request, ResponseInterface $response, call
     return $cachingMiddleWare($request, $response, $next);
 };
 
-
 // Create a Relay Runner instance ...
 $runner = new Runner($queue);
-
 
 // Test to cache
 $body = new Wandu\Http\Psr\Stream('php://memory', 'w');
 $body->write('<html><head><title>Demo</title></head><body><h1>Hello World!</h1></body></html>');
-
 
 // ... and run it with the queue defined above
 /* @var Response $response */

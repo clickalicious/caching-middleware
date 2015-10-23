@@ -80,31 +80,58 @@ use Gpupo\Cache\CacheItem;
 class CachingMiddlewareTest extends \PHPUnit_Framework_TestCase
 {
     /**
-     * Instance of CachingMiddleware
+     * Instance of CachingMiddleware.
      *
      * @var CachingMiddleware
-     * @access protected
      */
     protected $cachingMiddleware;
 
     /**
-     * The body for testing as stream resource
+     * The body for testing as stream resource.
      *
      * @var Stream
-     * @access protected
      */
     protected $body;
 
-
+    /**
+     * The emulated/faked next callable.
+     *
+     * @var callable
+     */
     protected $next;
 
+    /**
+     * $_SERVER.
+     *
+     * @var array
+     */
+    protected $server;
+
+    /**
+     * $_COOKIES.
+     *
+     * @var array
+     */
+    protected $cookie;
+
+    /**
+     * $_REQUEST.
+     *
+     * @var array
+     */
+    protected $request;
+
+    /**
+     * $_FILES.
+     *
+     * @var array
+     */
+    protected $files;
 
     /**
      * Set up for testing.
      *
      * @author Benjamin Carl <opensource@clickalicious.de>
-     * @return void
-     * @access protected
      */
     protected function setUp()
     {
@@ -112,12 +139,12 @@ class CachingMiddlewareTest extends \PHPUnit_Framework_TestCase
         $cacheItemPool = new CacheItemPool('Null');
 
         // Dummy factory One
-        $cacheItemFactory = function($key) {
+        $cacheItemFactory = function ($key) {
             return new CacheItem($key);
         };
 
         // Dummy factory Two
-        $cacheItemKeyFactory = function(RequestInterface $request) {
+        $cacheItemKeyFactory = function (RequestInterface $request) {
             return sha1(serialize($request));
         };
 
@@ -129,17 +156,21 @@ class CachingMiddlewareTest extends \PHPUnit_Framework_TestCase
         $this->body->write('<html><head><title>Test</title></head><body><h1>Hello World!</h1></body></html>');
 
         // Create fake next callable
-        $this->next = function(Request $request, Response $response){
+        $this->next = function (Request $request, Response $response) {
             return $response;
         };
+
+        // Map globals for inject in later use
+        $this->server = $_SERVER;
+        $this->cookie = $_COOKIE;
+        $this->request = $_REQUEST;
+        $this->files = $_FILES;
     }
 
     /**
      * Tests: If the CachingMiddleware can be instantiated properly.
      *
      * @author Benjamin Carl <opensource@clickalicious.de>
-     * @return void
-     * @access public
      */
     public function testInit()
     {
@@ -150,8 +181,6 @@ class CachingMiddlewareTest extends \PHPUnit_Framework_TestCase
      * Tests: If the CachingMiddleware is cappable of handling a request.
      *
      * @author Benjamin Carl <opensource@clickalicious.de>
-     * @return void
-     * @access public
      */
     public function testHandleRequest()
     {
@@ -164,10 +193,10 @@ class CachingMiddlewareTest extends \PHPUnit_Framework_TestCase
         /* @var Response $response */
         $response = $cachingMiddleware(
             new Request(
-                $_SERVER,
-                $_COOKIE,
-                $_REQUEST,
-                $_FILES,
+                $this->server,
+                $this->cookie,
+                $this->request,
+                $this->files,
                 [],
                 [],
                 'GET',

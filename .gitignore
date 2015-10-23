@@ -49,6 +49,7 @@ $RECYCLE.BIN/
 __*/
 docs/html/*
 bin/*
+docs/coverage/*
 
 # Common
 *.bak

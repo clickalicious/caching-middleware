@@ -26,7 +26,7 @@ before_script:
   - composer --optimize-autoloader --no-interaction
 
 script:
-  - bin/phpunit -c tests/ --coverage-clover=coverage.clover
+  - bin/phpunit -c tests/ --coverage-clover=coverage.clover --coverage-html=./docs/coverage
 
 after_script:
   # We upload only for reference platform! This is our base for further code analyses and so on.
@@ -35,8 +35,8 @@ after_script:
 
 after_success:
   # Push coverage to github pages branch
-  - chmod +x ./bin/update-gh-pages.sh
-  - bash ./bin/update-gh-pages.sh
+  - chmod +x ./update-gh-pages.sh
+  - bash ./update-gh-pages.sh
   # CREATE GIT TAG
   - git config --global user.email "builds@travis-ci.org"
   - git config --global user.name "Travis"

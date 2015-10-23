@@ -54,9 +54,9 @@ namespace Clickalicious;
  */
 
 use Gpupo\Cache\CacheAwareTrait;
-use Psr\Http\Message\ServerRequestInterface;
 use Psr\Http\Message\RequestInterface;
 use Psr\Http\Message\ResponseInterface;
+use Psr\Http\Message\ServerRequestInterface;
 use Psr\Cache\CacheItemPoolInterface;
 use Psr\Cache\CacheItemInterface;
 use Teapot\StatusCode\Http;
@@ -145,7 +145,6 @@ class CachingMiddleware
         }
 
         if ($html = $this->getCachedResponseHtml($request)) {
-
             $body = new Stream('php://memory', 'w');
             $body->write($html);
             $response = $response->withBody($body);

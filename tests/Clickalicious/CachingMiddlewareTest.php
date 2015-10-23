@@ -55,6 +55,12 @@ namespace Clickalicious;
  */
 
 use Gpupo\Cache\CacheItemPool;
+use Wandu\Http\Psr\ServerRequest as Request;
+use Psr\Http\Message\RequestInterface;
+use Wandu\Http\Psr\Response;
+use Wandu\Http\Psr\Stream;
+use Wandu\Http\Psr\Uri;
+use Gpupo\Cache\CacheItem;
 
 /**
  * CachingMiddleware.
@@ -74,25 +80,114 @@ use Gpupo\Cache\CacheItemPool;
 class CachingMiddlewareTest extends \PHPUnit_Framework_TestCase
 {
     /**
-     * Tests: If the CachingMiddleware can be instantiated properly.
+     * Instance of CachingMiddleware
+     *
+     * @var CachingMiddleware
+     * @access protected
      */
-    public function testInit()
+    protected $cachingMiddleware;
+
+    /**
+     * The body for testing as stream resource
+     *
+     * @var Stream
+     * @access protected
+     */
+    protected $body;
+
+
+    protected $next;
+
+
+    /**
+     * Set up for testing.
+     *
+     * @author Benjamin Carl <opensource@clickalicious.de>
+     * @return void
+     * @access protected
+     */
+    protected function setUp()
     {
         // Get a null driver (testing) based instance of cache pool
         $cacheItemPool = new CacheItemPool('Null');
 
         // Dummy factory One
-        $factoryOne = function () {
-            return 1;
+        $cacheItemFactory = function($key) {
+            return new CacheItem($key);
         };
 
         // Dummy factory Two
-        $factoryTwo = function () {
-            return 2;
+        $cacheItemKeyFactory = function(RequestInterface $request) {
+            return sha1(serialize($request));
         };
 
-        $instance = new CachingMiddleware($cacheItemPool, $factoryOne, $factoryTwo);
+        // Create instance of CachingMiddleware for testing
+        $this->cachingMiddleware = new CachingMiddleware($cacheItemPool, $cacheItemFactory, $cacheItemKeyFactory);
 
-        $this->assertInstanceOf('Clickalicious\CachingMiddleware', $instance);
+        // Create a default body for testing
+        $this->body = new Stream('php://memory', 'w');
+        $this->body->write('<html><head><title>Test</title></head><body><h1>Hello World!</h1></body></html>');
+
+        // Create fake next callable
+        $this->next = function(Request $request, Response $response){
+            return $response;
+        };
+    }
+
+    /**
+     * Tests: If the CachingMiddleware can be instantiated properly.
+     *
+     * @author Benjamin Carl <opensource@clickalicious.de>
+     * @return void
+     * @access public
+     */
+    public function testInit()
+    {
+        $this->assertInstanceOf('Clickalicious\CachingMiddleware', $this->cachingMiddleware);
+    }
+
+    /**
+     * Tests: If the CachingMiddleware is cappable of handling a request.
+     *
+     * @author Benjamin Carl <opensource@clickalicious.de>
+     * @return void
+     * @access public
+     */
+    public function testHandleRequest()
+    {
+        // Retrieve caching middleware for call
+        $cachingMiddleware = $this->cachingMiddleware;
+
+        // Next
+        $next = $this->next;
+
+        /* @var Response $response */
+        $response = $cachingMiddleware(
+            new Request(
+                $_SERVER,
+                $_COOKIE,
+                $_REQUEST,
+                $_FILES,
+                [],
+                [],
+                'GET',
+                new Uri(
+                    '/phpunit/test'
+                ),
+                '1.1',
+                []
+            ),
+            new Response(
+                200,
+                'OK',
+                '1.1',
+                [],
+                $this->body
+            ),
+            $next
+        );
+
+        // Ensure that we retrieved a response compatible to interface of PSR (basic check)
+        $this->assertInstanceOf('Psr\Http\Message\ResponseInterface', $response);
     }
 }

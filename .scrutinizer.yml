@@ -68,8 +68,7 @@ tools:
             standard: "PSR2"
         filter:
             paths:
-                - lib/*
-                - tests/*
+                - src/*
                 - web/*
                 - app/*
             excluded_paths:
@@ -87,8 +86,7 @@ tools:
             level: all
         filter:
             paths:
-                - lib/*
-                - tests/*
+                - src/*
                 - web/*
                 - app/*
     php_loc:
@@ -101,8 +99,7 @@ tools:
         enabled: true
         filter:
             paths:
-                - lib/*
-                - tests/*
+                - src/*
                 - web/*
                 - app/*
     php_pdepend:
@@ -116,6 +113,5 @@ tools:
     php_analyzer:
         filter:
             paths:
-                - lib/*
-                - tests/*
+                - src/*
     sensiolabs_security_checker: true

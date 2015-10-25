@@ -182,7 +182,7 @@ class CachingMiddlewareTest extends \PHPUnit_Framework_TestCase
      *
      * @author Benjamin Carl <opensource@clickalicious.de>
      */
-    public function testHandleRequest()
+    public function testHandleGetRequest()
     {
         // Retrieve caching middleware for call
         $cachingMiddleware = $this->cachingMiddleware;
@@ -218,5 +218,63 @@ class CachingMiddlewareTest extends \PHPUnit_Framework_TestCase
 
         // Ensure that we retrieved a response compatible to interface of PSR (basic check)
         $this->assertInstanceOf('Psr\Http\Message\ResponseInterface', $response);
+    }
+
+    /**
+     * Tests: If the CachingMiddleware would skip a "not-GET" request.
+     *
+     * @author Benjamin Carl <opensource@clickalicious.de>
+     */
+    public function testSkipNonGetRequest()
+    {
+        // Retrieve caching middleware for call
+        $cachingMiddleware = $this->cachingMiddleware;
+
+        // Next
+        $next = $this->next;
+
+        /* @var Response $response */
+        $response = $cachingMiddleware(
+            new Request(
+                $this->server,
+                $this->cookie,
+                $this->request,
+                $this->files,
+                [],
+                [],
+                'POST',
+                new Uri(
+                    '/phpunit/test'
+                ),
+                '1.1',
+                []
+            ),
+            new Response(
+                200,
+                'OK',
+                '1.1',
+                [],
+                $this->body
+            ),
+            $next
+        );
+
+        // Ensure that we retrieved a response compatible to interface of PSR (basic check)
+        $this->assertInstanceOf('Psr\Http\Message\ResponseInterface', $response);
+    }
+
+    /**
+     * Tests: If the CachePool can be retrieved like the contract says.
+     *
+     * @author Benjamin Carl <opensource@clickalicious.de>
+     */
+    public function testRetrieveCachePool()
+    {
+        // Retrieve caching middleware for call
+        $cachingMiddleware = $this->cachingMiddleware;
+
+        // Ensure that we retrieved a response compatible to interface of PSR (basic check)
+        $this->assertInstanceOf('Psr\Cache\CacheItemPoolInterface', $cachingMiddleware->getCacheItemPool());
+        $this->assertTrue($cachingMiddleware->hasCacheItemPool());
     }
 }

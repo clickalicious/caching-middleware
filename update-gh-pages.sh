@@ -22,5 +22,5 @@ if [ $TRAVIS_PULL_REQUEST == 'false' ]; then
   git commit -m "Travis build $TRAVIS_BUILD_NUMBER pushed to gh-pages"
   git push -fq origin gh-pages > /dev/null 2>&1
 
-  echo -e "Done magic with coverage\n"
+  echo -e "Done\n"
 fi

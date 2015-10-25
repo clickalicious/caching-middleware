@@ -51,7 +51,7 @@ checks:
         avoid_perl_style_comments: true
         avoid_multiple_statements_on_same_line: true
         avoid_fixme_comments: true
-        align_assignments: true
+        align_assignments: false
         return_doc_comment_if_not_inferrable: true
         parameter_doc_comments: true
         param_doc_comment_if_not_inferrable: true

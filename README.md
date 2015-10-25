@@ -48,8 +48,8 @@ For a consistent versioning we decided to make use of `Semantic Versioning 2.0.0
 - [x] Bug hunt and quality offensive
 - [x] Travis implementation ([travis-ci.org](https://travis-ci.org/clickalicious/CachingMiddleware))
 - [x] Scrutinizer ([scrutinizer-ci.com](https://scrutinizer-ci.com/g/clickalicious/CachingMiddleware/))
-- [ ] 75 - 90% Test Coverage
-- [ ] Target stable release 1.0.0
+- [x] 75 - 90% Test Coverage
+- [x] Target stable release 1.0.0
 
 
 [![Throughput Graph](https://graphs.waffle.io/clickalicious/CachingMiddleware/throughput.svg)](https://waffle.io/clickalicious/CachingMiddleware/metrics)

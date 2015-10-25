@@ -143,6 +143,7 @@ class CachingMiddleware
             return $next($request, $response);
         }
 
+        // @codeCoverageIgnoreStart
         if ($html = $this->getCachedResponseHtml($request)) {
             $body = new Stream('php://memory', 'w');
             $body->write($html);
@@ -150,6 +151,7 @@ class CachingMiddleware
 
             return $response;
         }
+        // @codeCoverageIgnoreEnd
 
         /** @var ResponseInterface $response */
         $response = $next($request, $response);

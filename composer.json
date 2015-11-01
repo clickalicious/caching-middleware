@@ -12,7 +12,7 @@
   "require": {
     "php": ">=5.5.0",
     "shrikeh/teapot": "~1.0.2",
-    "psr/http-message": "dev-master as 1.0.x-dev",
+    "psr/http-message": "~1.0",
     "gpupo/cache": "~1.2.1"
   },
   "require-dev": {
@@ -54,11 +54,6 @@
     "preferred-install": "dist",
     "platform": {
       "php": "5.6.0"
-    }
-  },
-  "extra": {
-    "branch-alias": {
-      "dev-master": "1.0.x-dev"
     }
   }
 }

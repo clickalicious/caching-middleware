@@ -13,13 +13,13 @@
     "php": ">=5.5.0",
     "shrikeh/teapot": "~1.0.2",
     "psr/http-message": "~1.0",
-    "gpupo/cache": "~1.2.1",
-    "wandu/http": "~1.1.0"
+    "gpupo/cache": "~1.2.2",
+    "wandu/http": "~1.1.1"
   },
   "require-dev": {
-    "phpunit/phpunit": "~4.8.9",
-    "relay/relay": "~1.0.0",
-    "symfony/var-dumper": "~2.7.5",
+    "phpunit/phpunit": "~5.1.3",
+    "relay/relay": "~1.1.0",
+    "symfony/var-dumper": "~2.8.1",
     "cocur/slugify": "~0.4.1"
   },
   "autoload": {

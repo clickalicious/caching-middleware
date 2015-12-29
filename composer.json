@@ -17,7 +17,7 @@
     "wandu/http": "~1.1.1"
   },
   "require-dev": {
-    "phpunit/phpunit": "~5.1.3",
+    "phpunit/phpunit": "~4.8.9",
     "relay/relay": "~1.1.0",
     "symfony/var-dumper": "~2.8.1",
     "cocur/slugify": "~0.4.1"

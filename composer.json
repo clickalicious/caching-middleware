@@ -23,8 +23,8 @@
     "cocur/slugify": "~0.4.1"
   },
   "autoload": {
-    "psr-0": {
-      "": "src/"
+    "psr-4": {
+      "Clickalicious\\": "src/Clickalicious/"
     }
   },
   "include-path": [
@@ -39,7 +39,7 @@
     "relay",
     "stack"
   ],
-  "homepage": "https://www.clickalicious.de/",
+  "homepage": "https://github.com/clickalicious/CachingMiddleware",
   "license": [
     "BSD-3-Clause"
   ],

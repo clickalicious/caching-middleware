@@ -4,7 +4,7 @@
 
 namespace Clickalicious;
 
-/*
+/**
  * CachingMiddleware
  *
  * CachingMiddlewareTest.php - Tests of caching middleware implementation.
@@ -14,7 +14,7 @@ namespace Clickalicious;
  * LICENSE:
  * CachingMiddleware - The caching middleware compatible to PSR-7 stack implementations.
  *
- * Copyright (c) 2005 - 2015, Benjamin Carl - All rights reserved.
+ * Copyright (c) 2015 - 2016, Benjamin Carl - All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
@@ -161,10 +161,10 @@ class CachingMiddlewareTest extends \PHPUnit_Framework_TestCase
         };
 
         // Map globals for inject in later use
-        $this->server = $_SERVER;
-        $this->cookie = $_COOKIE;
+        $this->server  = $_SERVER;
+        $this->cookie  = $_COOKIE;
         $this->request = $_REQUEST;
-        $this->files = $_FILES;
+        $this->files   = $_FILES;
     }
 
     /**

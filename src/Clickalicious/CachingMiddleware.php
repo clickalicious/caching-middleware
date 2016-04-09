@@ -4,7 +4,7 @@
 
 namespace Clickalicious;
 
-/*
+/**
  * CachingMiddleware
  *
  * CachingMiddleware.php - Caching middleware implementation.
@@ -14,7 +14,7 @@ namespace Clickalicious;
  * LICENSE:
  * CachingMiddleware - The caching middleware compatible to PSR-7 stack implementations.
  *
- * Copyright (c) 2005 - 2015, Benjamin Carl - All rights reserved.
+ * Copyright (c) 2015 - 2016, Benjamin Carl - All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
@@ -327,7 +327,7 @@ class CachingMiddleware
     protected function cacheResponse(RequestInterface $request, ResponseInterface $response)
     {
         $cacheItem = $this->createCacheItem($this->createKeyFromRequest($request));
-        $value = $response->getBody()->__toString();
+        $value     = $response->getBody()->__toString();
         $cacheItem->set($value);
 
         $this

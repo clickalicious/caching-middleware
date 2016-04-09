@@ -22,7 +22,7 @@
     "phpunit/phpunit": "~4.8.24",
     "relay/relay": "~1.1.0",
     "symfony/var-dumper": "~2.8.4",
-    "cocur/slugify": "~0.4.1"
+    "cocur/slugify": "~2.1.1"
   },
   "autoload": {
     "psr-4": {

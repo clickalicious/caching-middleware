@@ -1,28 +1,29 @@
 {
   "name": "clickalicious/cachingmiddleware",
   "description": "CachingMiddleware - The caching middleware compatible to PSR-7 stack implementations.",
+  "type": "library",
   "authors": [
     {
       "name": "Benjamin Carl",
       "email": "opensource@clickalicious.de",
       "homepage": "https://www.clickalicious.de",
-      "role": "Developer"
+      "role": "Lead"
     }
   ],
   "minimum-stability": "stable",
   "prefer-stable": true,
   "require": {
     "php": ">=5.5.0",
-    "shrikeh/teapot": "~1.0.2",
-    "psr/http-message": "~1.0.0",
-    "gpupo/cache": "~1.2.2",
-    "wandu/http": "~1.6.2"
+    "shrikeh/teapot": "^1.0",
+    "psr/http-message": "^1.0",
+    "gpupo/cache": "^1.2",
+    "wandu/http": "^1.6"
   },
   "require-dev": {
-    "phpunit/phpunit": "~4.8.24",
-    "relay/relay": "~1.1.0",
-    "symfony/var-dumper": "~2.8.4",
-    "cocur/slugify": "~2.1.1"
+    "phpunit/phpunit": "^4.8",
+    "relay/relay": "^1.1",
+    "symfony/var-dumper": "^2.8",
+    "cocur/slugify": "^2.1"
   },
   "autoload": {
     "psr-4": {

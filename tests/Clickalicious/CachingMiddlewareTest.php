@@ -5,7 +5,7 @@
 namespace Clickalicious;
 
 /**
- * CachingMiddleware
+ * CachingMiddleware.
  *
  * CachingMiddlewareTest.php - Tests of caching middleware implementation.
  *

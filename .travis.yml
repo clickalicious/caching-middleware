@@ -4,12 +4,12 @@ php:
   - 5.5
   - 5.6
   - 7.0
+  - hhvm
 
-sudo: true
+sudo: false
 
 matrix:
   allow_failures:
-    - php: 7.0
     - php: hhvm
   fast_finish: true
 
@@ -36,7 +36,7 @@ after_script:
 after_success:
   # Push coverage to github pages branch
   - chmod +x ./update-gh-pages.sh
-  - bash ./update-gh-pages.sh
+  - if [ $(phpenv version-name) == "5.5" ] && [ "$PREFER_LOWEST" == "--prefer-lowest" ]; then bash ./update-gh-pages.sh; fi
   # CREATE GIT TAG
   - git config --global user.email "builds@travis-ci.org"
   - git config --global user.name "Travis"
@@ -46,16 +46,14 @@ after_success:
   - git tag $GIT_TAG -a -m "Generated tag from TravisCI build $TRAVIS_BUILD_NUMBER"
   - git push --tags --quiet https://$GITHUBKEY@github.com/clickalicious/CachingMiddleware > /dev/null 2>&1
 
-# blacklist
+# Blacklist the pushed tag from above to prevent black hole
 branches:
   except:
     - /^build-[0-9a-z\-]*/
 
 # Who to notify?
 notifications:
+  slack: clickalicious:$SLACKKEY
   email:
     recipients:
       - opensource@clickalicious.de
-    on_success: always
-    on_failure: change
-  slack: clickalicious:$SLACKKEY

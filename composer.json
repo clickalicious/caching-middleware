@@ -1,6 +1,7 @@
 {
   "name": "clickalicious/cachingmiddleware",
   "description": "CachingMiddleware - The PSR-6 Caching Middleware compatible to PSR-7 stacks.",
+  "type": "library",
   "authors": [
     {
       "name": "Benjamin Carl",

@@ -5,7 +5,7 @@
 
 The `PSR-6` **Caching Middleware** compatible to `PSR-7` stacks.
 
-| [![Build Status](https://img.shields.io/travis/clickalicious/CachingMiddleware.svg)](https://travis-ci.org/clickalicious/CachingMiddleware) 	| [![Scrutinizer](https://img.shields.io/scrutinizer/g/clickalicious/CachingMiddleware.svg)](https://scrutinizer-ci.com/g/clickalicious/CachingMiddleware/) 	| [![Code Coverage](https://scrutinizer-ci.com/g/clickalicious/CachingMiddleware/badges/coverage.png?b=master)](https://scrutinizer-ci.com/g/clickalicious/CachingMiddleware/?branch=master) 	| [![clickalicious open source](https://img.shields.io/badge/clickalicious-open--source-green.svg?style=flat)](https://www.clickalicious.de/) 	|
+| [![Build Status](https://img.shields.io/travis/clickalicious/CachingMiddleware.svg)](https://travis-ci.org/clickalicious/CachingMiddleware) 	| [![Scrutinizer](https://img.shields.io/scrutinizer/g/clickalicious/CachingMiddleware.svg)](http://clickalicious.github.io/CachingMiddleware/) 	| [![Code Coverage](https://scrutinizer-ci.com/g/clickalicious/CachingMiddleware/badges/coverage.png?b=master)](https://scrutinizer-ci.com/g/clickalicious/CachingMiddleware/?branch=master) 	| [![clickalicious open source](https://img.shields.io/badge/clickalicious-open--source-green.svg?style=flat)](https://www.clickalicious.de/) 	|
 |---	|---	|---	|---	|
 | [![GitHub release](https://img.shields.io/github/release/clickalicious/CachingMiddleware.svg?style=flat)](https://github.com/clickalicious/CachingMiddleware/releases) 	| [![Waffle.io](https://img.shields.io/waffle/label/clickalicious/CachingMiddleware/in%20progress.svg)](https://waffle.io/clickalicious/CachingMiddleware)  	| [![SensioLabsInsight](https://insight.sensiolabs.com/projects/2448be05-7ef4-45ae-b800-7965209f47a0/mini.png)](https://insight.sensiolabs.com/projects/2448be05-7ef4-45ae-b800-7965209f47a0) 	| [![Packagist](https://img.shields.io/packagist/l/clickalicious/CachingMiddleware.svg?style=flat)](https://opensource.org/licenses/BSD-3-Clause)  	|
 
@@ -79,7 +79,7 @@ $queue[] = function (Request $request, Response $response, callable $next) {
 
 ## Requirements
 
- - `PHP >= 5.5` (compatible up to PHP version 7)
+ - `PHP >= 5.6` (compatible up to PHP version 7)
 
 
 ## Philosophy

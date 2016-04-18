@@ -2,8 +2,8 @@
 ---
 
 ![Logo of Caching Middleware](docs/logo-large.png)
-  
-The **Caching Middleware** compatible to `PSR-7` stack implementations.
+
+The `PSR-6` **Caching Middleware** compatible to `PSR-7` stacks.
 
 | [![Build Status](https://img.shields.io/travis/clickalicious/CachingMiddleware.svg)](https://travis-ci.org/clickalicious/CachingMiddleware) 	| [![Scrutinizer](https://img.shields.io/scrutinizer/g/clickalicious/CachingMiddleware.svg)](http://clickalicious.github.io/CachingMiddleware/) 	| [![Code Coverage](https://scrutinizer-ci.com/g/clickalicious/CachingMiddleware/badges/coverage.png?b=master)](https://scrutinizer-ci.com/g/clickalicious/CachingMiddleware/?branch=master) 	| [![clickalicious open source](https://img.shields.io/badge/clickalicious-open--source-green.svg?style=flat)](https://www.clickalicious.de/) 	|
 |---	|---	|---	|---	|

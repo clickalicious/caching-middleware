@@ -1,6 +1,6 @@
 {
   "name": "clickalicious/cachingmiddleware",
-  "description": "CachingMiddleware - The caching middleware compatible to PSR-7 stack implementations.",
+  "description": "CachingMiddleware - The PSR-6 Caching Middleware compatible to PSR-7 stacks.",
   "type": "library",
   "authors": [
     {
@@ -47,7 +47,8 @@
   "support": {
     "email": "opensource@clickalicious.de",
     "issues": "https://github.com/clickalicious/CachingMiddleware/issues",
-    "wiki": "https://github.com/clickalicious/CachingMiddleware/wiki"
+    "wiki": "https://github.com/clickalicious/CachingMiddleware/wiki",
+    "tests": "https://clickalicious.github.io/CachingMiddleware"
   },
   "config": {
     "bin-dir": "bin",

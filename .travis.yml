@@ -53,7 +53,7 @@ branches:
 
 # Who to notify?
 notifications:
-  slack: clickalicious:$SLACKKEY
+  slack: clickalicious:kGu3QTHXFSHx61xiPqGeoCBN
   email:
     recipients:
       - opensource@clickalicious.de

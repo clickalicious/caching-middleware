@@ -53,7 +53,8 @@ branches:
 
 # Who to notify?
 notifications:
-  slack: clickalicious:kGu3QTHXFSHx61xiPqGeoCBN
+  slack:
+    secure: "hhJBGiLFxLgvKdSu5hIUInj4YwYBfsiPBt1NTseWWHArqhAz3YaJWGA6QBT4Wkk+RB2KD6WclqEf80ReHyQwLoWaZ3xkbtUvFgTnPDmcFGtNSECbQJA8ODvR6IwF8OCbcOioeOi+yk1VsHkRsZka5UqdYDz7zRcGXDUBpS1vtzw1w3Cc4l2pXZ6eigL7gwGULlEjRuN+dZWsUQZH2SIOeLIN6FbGI7A0KZKh/kb4k46f6dwFkZWfwUBBOg0M480olXRrM5M5spqDxx3Tf3syjgiO2IZ/3T/cdEbLnO1Qh3XYa3TMn41Mro6pEo8J9MpcyZRkOaEoemlnN0aTFew6rPOHUzF6VAzzIj4gG3gwfjBpHl0ubX1IONN1y2Mn0suu+KtCPatziDj8dWykKofkXuvYYgXHJ5vlurcSoFZPS5TBlTGeoJYCLdtV1K3OJcEENr/VM7TsxAWMqSW1/4WLxgvEFunn7eyJWzXFqsOjbn6R7C09CcGxi+T8a98/qQxJrSljV8ihyTewAtnKMAaNXQqTWBSFOIzW3Y7gNayZbBELLe3yYyV7OB73MrFz+W+srvRt9XCI2+ENh8cP4A9iim7zSd1MsEnNduhldXY5/JmfbCb7FdAdDTxpuLoSyLqZJw18L47dx3wCBbCkWyUayu14Eka82PCcKnPJd/qVrT8="
   email:
     recipients:
       - opensource@clickalicious.de

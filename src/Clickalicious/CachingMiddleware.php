@@ -143,24 +143,7 @@ class CachingMiddleware
             return $next($request, $response);
         }
 
-        // @codeCoverageIgnoreStart
-        if ($html = $this->getCachedResponseHtml($request)) {
-            $body = new Stream('php://memory', 'w');
-            $body->write($html);
-            $response = $response->withBody($body);
-
-            return $response;
-        }
-        // @codeCoverageIgnoreEnd
-
-        /** @var ResponseInterface $response */
-        $response = $next($request, $response);
-
-        if (Http::OK === $response->getStatusCode()) {
-            $this->cacheResponse($request, $response);
-        }
-
-        return $response;
+        return $this->handle($request, $response, $next);
     }
 
     /*------------------------------------------------------------------------------------------------------------------
@@ -283,6 +266,50 @@ class CachingMiddleware
     /*------------------------------------------------------------------------------------------------------------------
     | INTERNAL API
     +-----------------------------------------------------------------------------------------------------------------*/
+
+    /**
+     * @param \Psr\Http\Message\ServerRequestInterface $request
+     * @param \Psr\Http\Message\ResponseInterface      $response
+     * @param callable                                 $next
+     *
+     * @return \Psr\Http\Message\ResponseInterface
+     */
+    protected function handle(ServerRequestInterface $request, ResponseInterface $response, callable $next)
+    {
+        // @codeCoverageIgnoreStart
+        if ($html = $this->getCachedResponseHtml($request)) {
+            return $this->buildResponse($html, $response);
+        }
+        // @codeCoverageIgnoreEnd
+
+        /** @var ResponseInterface $response */
+        $response = $next($request, $response);
+
+        if (Http::OK === $response->getStatusCode()) {
+            $this->cacheResponse($request, $response);
+        }
+
+        return $response;
+    }
+    
+    /**
+     * Builds response instance with HTML body from HTML passed in.
+     *
+     * @param string                              $html     HTML used for response body
+     * @param \Psr\Http\Message\ResponseInterface $response Response used as base for response
+     *
+     * @author Benjamin Carl <opensource@clickalicious.de>
+     *
+     * @return \Psr\Http\Message\ResponseInterface
+     */
+    protected function buildResponse($html, ResponseInterface $response)
+    {
+        $body = new Stream('php://memory', 'w');
+        $body->write($html);
+        $response = $response->withBody($body);
+
+        return $response;
+    }
 
     /**
      * Creates a (static) key from RequestInterface passed in.

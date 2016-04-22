@@ -30,9 +30,6 @@
       "Clickalicious\\": "src/Clickalicious/"
     }
   },
-  "include-path": [
-    "src/"
-  ],
   "keywords": [
     "psr-7",
     "middleware",
@@ -52,6 +49,6 @@
   },
   "config": {
     "bin-dir": "bin",
-    "preferred-install": "dist"
+    "preferred-install": "source"
   }
 }

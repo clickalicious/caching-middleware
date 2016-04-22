@@ -291,7 +291,7 @@ class CachingMiddleware
 
         return $response;
     }
-    
+
     /**
      * Builds response instance with HTML body from HTML passed in.
      *
@@ -304,11 +304,13 @@ class CachingMiddleware
      */
     protected function buildResponse($html, ResponseInterface $response)
     {
+        // @codeCoverageIgnoreStart
         $body = new Stream('php://memory', 'w');
         $body->write($html);
         $response = $response->withBody($body);
 
         return $response;
+        // @codeCoverageIgnoreEnd
     }
 
     /**

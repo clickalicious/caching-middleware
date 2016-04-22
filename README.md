@@ -79,7 +79,7 @@ $queue[] = function (Request $request, Response $response, callable $next) {
 
 ## Requirements
 
- - `PHP >= 5.6` (compatible up to PHP version 7)
+ - `PHP >= 5.5` (compatible up to PHP version 7)
 
 
 ## Philosophy

@@ -100,6 +100,7 @@ class Cache
      *
      * @return Response|\Psr\Http\Message\ResponseInterface
      *
+     * @throws \Psr\Cache\InvalidArgumentException
      * @throws \InvalidArgumentException
      * @throws \RuntimeException
      */

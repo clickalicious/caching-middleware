@@ -25,7 +25,7 @@ The `PSR-6` **caching middleware** compatible to `PSR-7` stacks.
 ## Features
 
  - High performance (developed using a profiler)
- - Lightweight and high-quality codebase (following `PSR-0,1,2,7`)
+ - Lightweight and high-quality codebase (following `PSR-1,2,4,7`)
  - 100% `PSR-7` compatible
  - `PSR-6` caching
  - Clean & well documented code
@@ -66,7 +66,7 @@ $queue[] = function (Request $request, Response $response, callable $next) {
     };
 
     // Get cache
-    $cachingMiddleWare = new Cache(
+    $cachingMiddleWare = new Clickalicious\Caching\Middleware\Cache(
         new CacheItemPool('Filesystem'),
         $cacheItemFactory,
         $cacheItemKeyFactory

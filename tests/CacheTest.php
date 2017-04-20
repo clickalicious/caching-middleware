@@ -25,7 +25,7 @@
  * SOFTWARE.
  */
 
-namespace Caching\Middleware;
+namespace Clickalicious\Caching\Middleware;
 
 use Gpupo\Cache\CacheItemPool;
 use Gpupo\Cache\CacheItem;

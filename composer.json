@@ -29,12 +29,12 @@
   },
   "autoload": {
     "psr-4": {
-      "Caching\\": "src/Caching/"
+      "Clickalicious\\Caching\\Middleware\\": "src/"
     }
   },
   "autoload-dev": {
     "psr-4": {
-      "Caching\\": "tests/Caching/"
+      "Clickalicious\\Caching\\Middleware\\": "tests/"
     }
   },
   "keywords": [

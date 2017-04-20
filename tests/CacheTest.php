@@ -137,7 +137,7 @@ class CacheTest extends \PHPUnit_Framework_TestCase
      */
     public function testInit()
     {
-        $this->assertInstanceOf('Caching\Middleware\Cache', $this->cachingMiddleware);
+        $this->assertInstanceOf('Clickalicious\Caching\Middleware\Cache', $this->cachingMiddleware);
     }
 
     /**
@@ -201,24 +201,25 @@ class CacheTest extends \PHPUnit_Framework_TestCase
         $response = $cachingMiddleware(
             new Request(
                 $this->server,
-                $this->cookie,
                 $this->request,
-                $this->files,
                 [],
+                $this->cookie,
+                $this->files,
                 [],
                 'POST',
                 new Uri(
                     '/phpunit/test'
                 ),
-                '1.1',
-                []
+                new Stream(),
+                [],
+                '1.1'
             ),
             new Response(
                 200,
-                'OK',
-                '1.1',
+                $this->body,
                 [],
-                $this->body
+                'OK',
+                '1.1'
             ),
             $next
         );

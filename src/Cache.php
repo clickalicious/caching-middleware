@@ -243,6 +243,7 @@ class Cache
      * @return \Psr\Http\Message\ResponseInterface
      *
      * @throws \InvalidArgumentException
+     * @throws \Psr\Cache\InvalidArgumentException
      * @throws \RuntimeException
      */
     protected function handle(ServerRequestInterface $request, ResponseInterface $response, callable $next)

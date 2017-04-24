@@ -34,11 +34,9 @@ before_script:
   - composer --optimize-autoloader --no-interaction
 
 script:
-#  - bin/phpunit -c tests/ --coverage-clover=coverage.clover --coverage-html=./docs/coverage
   - bin/phpunit --configuration . --coverage-clover=build/logs/clover.xml --coverage-html=build/html/coverage
 
 after_script:
-  # We upload only for reference platform! This is our base for further code analyses and so on.
   - if [ $(phpenv version-name) == "5.6" ] && [ "$PREFER_LOWEST" == "--prefer-lowest" ]; then bin/codacycoverage clover build/logs/clover.xml > /dev/null 2>&1; fi
 
 after_success:

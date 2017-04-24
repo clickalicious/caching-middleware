@@ -27,7 +27,7 @@
 
 require_once __DIR__ . '/vendor/autoload.php';
 
-use Caching\Middleware\Cache;
+use Clickalicious\Caching\Middleware\Cache;
 use Psr\Http\Message\RequestInterface;
 use Psr\Http\Message\ResponseInterface;
 use Wandu\Http\Psr\ServerRequest as Request;

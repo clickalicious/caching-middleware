@@ -1,21 +1,8 @@
-# Project specific
+# clickalicious
 __*/
-docs/coverage/*
+build/*
 bin/*
-
-# Common
-*.bak
-*.tmp
-*.log
-*.old
-.settings
-.buildpath
-.project
-.externalToolBuilders
 
 # Composer
 vendor/
 composer.lock
-
-# Node & npm
-npm_modules/

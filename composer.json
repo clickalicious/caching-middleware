@@ -1,6 +1,6 @@
 {
   "name": "clickalicious/caching-middleware",
-  "description": "The PSR-6 caching middleware compatible to PSR-7 stacks.",
+  "description": "The PSR-7 middleware for caching compatible to PSR-6.",
   "type": "library",
   "authors": [
     {
@@ -56,6 +56,6 @@
   },
   "config": {
     "bin-dir": "bin",
-    "preferred-install": "source"
+    "preferred-install": "dist"
   }
 }

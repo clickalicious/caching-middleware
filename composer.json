@@ -18,7 +18,7 @@
     "shrikeh/teapot": "^2.3",
     "psr/http-message": "^1.0",
     "gpupo/cache": "^1.3",
-    "wandu/http": "^3.0"
+    "wandu/http": "^3.0.4"
   },
   "require-dev": {
     "phpunit/phpunit": "^5.7",

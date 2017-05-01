@@ -25,7 +25,7 @@
  * SOFTWARE.
  */
 
-require_once __DIR__ . '/vendor/autoload.php';
+require_once dirname(__FILE__, 2).'/vendor/autoload.php';
 
 use Clickalicious\Caching\Middleware\Cache;
 use Psr\Http\Message\RequestInterface;
@@ -70,7 +70,10 @@ $queue[] = function (RequestInterface $request, ResponseInterface $response, cal
 // Create a Relay Runner instance ...
 $runner = new Runner($queue);
 
-// Test to cache
+// Replay protocol version from request ...
+$protocolVersion = explode('/', $_SERVER['SERVER_PROTOCOL'])[1];
+
+// Dummy content to be cached ...
 $body = new Wandu\Http\Psr\Stream('php://memory', 'w');
 $body->write('<html><head><title>Demo</title></head><body><h1>Hello World!</h1></body></html>');
 
@@ -79,24 +82,25 @@ $body->write('<html><head><title>Demo</title></head><body><h1>Hello World!</h1><
 $response = $runner(
     new Request(
         $_SERVER,
-        $_COOKIE,
         $_REQUEST,
-        $_FILES,
         [],
+        $_COOKIE,
+        $_FILES,
         [],
         $_SERVER['REQUEST_METHOD'],
         new Uri(
             $_SERVER['REQUEST_URI']
         ),
-        '1.1',
-        getallheaders()
+        new \Wandu\Http\Psr\Stream(),
+        getallheaders(),
+        $protocolVersion
     ),
     new Response(
         200,
-        'OK',
-        '1.1',
+        $body,
         [],
-        $body
+        Response::HTTP_STATUS_OK,
+        $protocolVersion
     )
 );
 

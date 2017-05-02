@@ -17,7 +17,7 @@
     "roave/security-advisories": "dev-master as 1.0.x-dev",
     "shrikeh/teapot": "^2.3",
     "psr/http-message": "^1.0",
-    "gpupo/cache": "^1.3.2",
+    "gpupo/cache": "dev-master as 1.3.x-dev",
     "wandu/http": "dev-master as 3.1.x-dev"
   },
   "require-dev": {

@@ -103,7 +103,8 @@ class CacheTest extends \PHPUnit_Framework_TestCase
 
         // Dummy factory One
         $cacheItemFactory = function ($key) {
-            return new CacheItem($key);
+            $cacheItem = new CacheItem($key);
+            return $cacheItem->expiresAfter(60);
         };
 
         // Dummy factory Two

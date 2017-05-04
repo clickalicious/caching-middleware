@@ -1,15 +1,23 @@
 language: php
 
 php:
+  - 5.3
+  - 5.4
   - 5.5
   - 5.6
   - 7.0
+  - 7.1
+  - nightly
   - hhvm
 
 sudo: false
 
 matrix:
   allow_failures:
+    - php: 5.3
+    - php: 5.4
+    - php: 5.5
+    - php: nightly
     - php: hhvm
   fast_finish: true
 
@@ -22,21 +30,19 @@ env:
   - PREFER_LOWEST=""
 
 before_script:
-  - composer update --prefer-dist $PREFER_LOWEST
+  - composer update --ignore-platform-reqs --prefer-dist $PREFER_LOWEST
   - composer --optimize-autoloader --no-interaction
 
 script:
-  - bin/phpunit -c tests/ --coverage-clover=coverage.clover --coverage-html=./docs/coverage
+  - bin/phpunit --configuration . --coverage-clover=build/logs/clover.xml --coverage-html=build/html/coverage
 
 after_script:
-  # We upload only for reference platform! This is our base for further code analyses and so on.
-  - if [ $(phpenv version-name) == "5.5" ] && [ "$PREFER_LOWEST" == "--prefer-lowest" ]; then wget https://scrutinizer-ci.com/ocular.phar; fi
-  - if [ $(phpenv version-name) == "5.5" ] && [ "$PREFER_LOWEST" == "--prefer-lowest" ]; then php ocular.phar code-coverage:upload --format=php-clover coverage.clover > /dev/null 2>&1; fi
+  - if [ $(phpenv version-name) == "5.6" ] && [ "$PREFER_LOWEST" == "--prefer-lowest" ]; then bin/codacycoverage clover build/logs/clover.xml > /dev/null 2>&1; fi
 
 after_success:
   # Push coverage to github pages branch
   - chmod +x ./update-gh-pages.sh
-  - if [ $(phpenv version-name) == "5.5" ] && [ "$PREFER_LOWEST" == "--prefer-lowest" ]; then bash ./update-gh-pages.sh; fi
+  - if [ $(phpenv version-name) == "5.6" ] && [ "$PREFER_LOWEST" == "--prefer-lowest" ]; then bash ./update-gh-pages.sh; fi
   # CREATE GIT TAG
   - git config --global user.email "builds@travis-ci.org"
   - git config --global user.name "Travis"
@@ -44,7 +50,7 @@ after_success:
   - echo -n $GIT_TAG > public/version
   - git commit -m "Set build VERSION number" public/version
   - git tag $GIT_TAG -a -m "Generated tag from TravisCI build $TRAVIS_BUILD_NUMBER"
-  - git push --tags --quiet https://$GITHUBKEY@github.com/clickalicious/CachingMiddleware > /dev/null 2>&1
+  - git push --tags --quiet https://$GITHUBKEY@github.com/clickalicious/caching-middleware > /dev/null 2>&1
 
 # Blacklist the pushed tag from above to prevent black hole
 branches:
@@ -54,7 +60,7 @@ branches:
 # Who to notify?
 notifications:
   slack:
-    secure: "hhJBGiLFxLgvKdSu5hIUInj4YwYBfsiPBt1NTseWWHArqhAz3YaJWGA6QBT4Wkk+RB2KD6WclqEf80ReHyQwLoWaZ3xkbtUvFgTnPDmcFGtNSECbQJA8ODvR6IwF8OCbcOioeOi+yk1VsHkRsZka5UqdYDz7zRcGXDUBpS1vtzw1w3Cc4l2pXZ6eigL7gwGULlEjRuN+dZWsUQZH2SIOeLIN6FbGI7A0KZKh/kb4k46f6dwFkZWfwUBBOg0M480olXRrM5M5spqDxx3Tf3syjgiO2IZ/3T/cdEbLnO1Qh3XYa3TMn41Mro6pEo8J9MpcyZRkOaEoemlnN0aTFew6rPOHUzF6VAzzIj4gG3gwfjBpHl0ubX1IONN1y2Mn0suu+KtCPatziDj8dWykKofkXuvYYgXHJ5vlurcSoFZPS5TBlTGeoJYCLdtV1K3OJcEENr/VM7TsxAWMqSW1/4WLxgvEFunn7eyJWzXFqsOjbn6R7C09CcGxi+T8a98/qQxJrSljV8ihyTewAtnKMAaNXQqTWBSFOIzW3Y7gNayZbBELLe3yYyV7OB73MrFz+W+srvRt9XCI2+ENh8cP4A9iim7zSd1MsEnNduhldXY5/JmfbCb7FdAdDTxpuLoSyLqZJw18L47dx3wCBbCkWyUayu14Eka82PCcKnPJd/qVrT8="
+    secure: aFSqcD9z39hZJgCsJ0QS0ziSLEuqkY5Fuwk7/J9KSIc7+1qqaNACb1IkCxeazcGnpK2JtUvkAsiTyye412Nrym/RP2Yha2YWrlksRjwnm/IyxIo8t4tSI8EnQx+suQauqjiZUjXQm/WIGN4skn42ZAmN9NJfkY+BAqfcxYLAWTO6E9ohbw304Nlr5Khsnlb1Z8QjZgELP7bl4kOyqUjGE5i5nFKe4syH6ApziU+bn+yyESHfdXmsZoozOSwqviDUSiMlLQrzAs0b2kb35D9pk1nLL5HH/bJOf3j7S0CatnXf+BUYuPCu59JrX42NEBEGcdXbuC5PiIwTyN+JUAIHLRNaQ4oKkILBhDvAJes1FEWv/24qjTjgGW09GYoftdgYWzWattVKalvqkxN6q8MURqg2/np9UpyJf1mSkIYXU5fOcpCq3CjL9Tl2LZegOZPB/zl0WzIbmKTR84On9yFirE0SDfv6MS0BH/gzyECBOnmRDrCOA2CWGx0Pbyf4mQWn5cw9rIRxnZOZ5dN8YAG9wNOgRTT26+mitI5H5vGadGAZytfZDPrGi2eyvtAa5UOmvHkHzbHSZhUkmkXXWUM3Z8gLGUuv+EAez0BQ590cmQvTfKvO8W3jTFynR/ZuRQUCRQd11yztexNGPO15kFvzvED2RGhPmHgEtzlNwGm+bw4=
   email:
     recipients:
       - opensource@clickalicious.de

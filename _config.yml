@@ -1,0 +1,8 @@
+title: Cachingmiddleware
+description: CachingMiddleware - A caching middleware for PSR-7 stacks based on PSR compatible cache implementations.
+google_analytics: UA-905793-11
+show_downloads: true
+theme: jekyll-theme-minimal
+
+gems:
+  - jekyll-mentions

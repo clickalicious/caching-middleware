@@ -2,7 +2,7 @@
 
 /**
  * (The MIT license)
- * Copyright 2017 clickalicious, Benjamin Carl
+ * Copyright 2017 clickalicious, Benjamin Carl.
  *
  * Permission is hereby granted, free of charge, to any person obtaining a
  * copy of this software and associated documentation files (the
@@ -39,8 +39,6 @@ use Wandu\Http\Psr\Response;
 
 /**
  * Class Cache
- *
- * @package Cache
  */
 class Cache
 {

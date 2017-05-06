@@ -38,7 +38,7 @@ use Wandu\Http\Psr\Stream;
 use Wandu\Http\Psr\Response;
 
 /**
- * Class Cache
+ * Class Cache.
  */
 class Cache
 {
@@ -118,7 +118,7 @@ class Cache
     /**
      * Setter for cacheItemFactory.
      *
-     * @param callable $cacheItemFactory The cache item factory to set.
+     * @param callable $cacheItemFactory the cache item factory to set
      *
      * @author Benjamin Carl <opensource@clickalicious.de>
      */
@@ -130,7 +130,7 @@ class Cache
     /**
      * Setter for cacheItemFactory.
      *
-     * @param callable $cacheItemFactory The cache item factory to set.
+     * @param callable $cacheItemFactory the cache item factory to set
      *
      * @author Benjamin Carl <opensource@clickalicious.de>
      *
@@ -158,7 +158,7 @@ class Cache
     /**
      * Setter for cacheItemKeyFactory.
      *
-     * @param callable $cacheItemKeyFactory The cache item factory to set.
+     * @param callable $cacheItemKeyFactory the cache item factory to set
      *
      * @author Benjamin Carl <opensource@clickalicious.de>
      */
@@ -170,7 +170,7 @@ class Cache
     /**
      * Setter for cacheItemKeyFactory.
      *
-     * @param callable $cacheItemKeyFactory The cache item factory to set.
+     * @param callable $cacheItemKeyFactory the cache item factory to set
      *
      * @author Benjamin Carl <opensource@clickalicious.de>
      *
@@ -198,7 +198,7 @@ class Cache
     /**
      * Fluent: Setter for cacheItemPool.
      *
-     * @param CacheItemPoolInterface $cacheItemPool The cache item pool to set.
+     * @param CacheItemPoolInterface $cacheItemPool the cache item pool to set
      *
      * @author Benjamin Carl <opensource@clickalicious.de>
      *
@@ -214,7 +214,7 @@ class Cache
     /**
      * Returns a cached Response by Request(Interface).
      *
-     * @param RequestInterface $request The request to return cached response for.
+     * @param RequestInterface $request the request to return cached response for
      *
      * @author Benjamin Carl <opensource@clickalicious.de>
      *
@@ -330,7 +330,7 @@ class Cache
     protected function cacheResponse(RequestInterface $request, ResponseInterface $response)
     {
         $cacheItem = $this->createCacheItem($this->createKeyFromRequest($request));
-        $value     = $response->getBody()->__toString();
+        $value = $response->getBody()->__toString();
         $cacheItem->set($value);
 
         $this

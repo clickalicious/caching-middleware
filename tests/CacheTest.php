@@ -36,9 +36,7 @@ use Wandu\Http\Psr\Stream;
 use Wandu\Http\Psr\Uri;
 
 /**
- * Class CacheTest
- *
- * @package CacheTest
+ * Class CacheTest.
  */
 class CacheTest extends \PHPUnit_Framework_TestCase
 {
@@ -104,6 +102,7 @@ class CacheTest extends \PHPUnit_Framework_TestCase
         // Dummy factory One
         $cacheItemFactory = function ($key) {
             $cacheItem = new CacheItem($key);
+
             return $cacheItem->expiresAfter(60);
         };
 
@@ -125,10 +124,10 @@ class CacheTest extends \PHPUnit_Framework_TestCase
         };
 
         // Map globals for inject in later use
-        $this->server  = $_SERVER;
-        $this->cookie  = $_COOKIE;
+        $this->server = $_SERVER;
+        $this->cookie = $_COOKIE;
         $this->request = $_REQUEST;
-        $this->files   = $_FILES;
+        $this->files = $_FILES;
     }
 
     /**

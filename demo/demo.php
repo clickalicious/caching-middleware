@@ -2,7 +2,7 @@
 
 /**
  * (The MIT license)
- * Copyright 2017 clickalicious, Benjamin Carl
+ * Copyright 2017 clickalicious, Benjamin Carl.
  *
  * Permission is hereby granted, free of charge, to any person obtaining a
  * copy of this software and associated documentation files (the
@@ -24,7 +24,6 @@
  * CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-
 require_once dirname(__FILE__, 2).'/vendor/autoload.php';
 
 use Clickalicious\Caching\Middleware\Cache;
@@ -40,13 +39,11 @@ use Cocur\Slugify\Slugify;
 
 // Build queue for running middleware through relay
 $queue[] = function (RequestInterface $request, ResponseInterface $response, callable $next) {
-
     $cacheItemFactory = function ($key) {
         return new CacheItem($key);
     };
 
     $cacheItemKeyFactory = function (RequestInterface $request) {
-
         static $key = null;
 
         if (null === $key) {

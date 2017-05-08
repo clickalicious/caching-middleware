@@ -42,7 +42,7 @@ use Wandu\Http\Psr\Response;
  */
 class Cache
 {
-    // Use the provided trait for functionality
+    // Use the provided trait for functionality.
     use CacheAwareTrait;
 
     /**

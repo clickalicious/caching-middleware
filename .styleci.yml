@@ -1,3 +1,9 @@
 preset: symfony
 
 risky: true
+
+finder:
+  exclude:
+    - "tests"
+  name:
+    - "*.php"

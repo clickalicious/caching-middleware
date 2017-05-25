@@ -21,7 +21,7 @@
     "wandu/http": "dev-master as 3.1.x-dev"
   },
   "require-dev": {
-    "phpunit/phpunit": "^5.7",
+    "phpunit/phpunit": "^6.1",
     "relay/relay": "^1.1",
     "cocur/slugify": "^2.1",
     "codacy/coverage": "^1.0.5",
